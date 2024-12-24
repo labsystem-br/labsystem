@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <link rel="icon" href="../images/microscopio.png"image/png">
+		<title>LAB-SYSTEN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Interpretação de Exames</title>
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body class="fade-in" >
+  <input type="hidden" name="csrf_token" value="gerar_token()">
+  <!-- Navbar com Dropdown Menu -->
+  <div class="navbar">
+    <h2>Plataforma de Interpretação de Exames</h2>
+    <div class="dropdown">
+      <button class="dropdown-button">Menu</button>
+      <div class="dropdown-menu">
+        <a href="#" class="menu-link" data-section="hemogram">Hemograma</a>
+        <a href="#" class="menu-link" data-section="glucose">Glicose</a>
+        <a href="#" class="menu-link" data-section="cholesterol">Colesterol</a>
+        <a href="#" class="menu-link" data-section="hormonal">Exames Hormonais</a>
+        <a href="#" class="menu-link" data-section="inflammatory-markers">Marcadores Inflamatórios</a>
+        <a href="#" class="menu-link" data-section="metabolic-exams">Exames Metabólicos</a>
+        <a href="#" class="menu-link" data-section="genetic-exams">Exames Genéticos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="content">
+    <header>
+      <h1>Interpretação de Exames</h1>
+      <p>Selecione um exame no menu para começar.</p>
+    </header>
+
+    <!-- Hemograma -->
+    <section id="hemogram" class="exam-section active">
+      <h2>Hemograma</h2>
+      <form id="hemogram-form">
+        <div class="form-group">
+          <label for="age">Idade:</label>
+          <input type="number" id="age" name="age" required>
+        </div>
+        <div class="form-group">
+          <label for="sex">Sexo:</label>
+          <select id="sex" name="sex" required>
+            <option value="">Selecione</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+          </select>
+        </div>
+        <div class="form-group" id="pregnancy-group" style="display: none;">
+          <label for="pregnancy">Está grávida ou com suspeita?</label>
+          <select id="pregnancy" name="pregnancy">
+            <option value="">Selecione</option>
+            <option value="yes">Sim</option>
+            <option value="no">Não</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="medications">Toma algum medicamento que pode interferir no exame?</label>
+          <select id="medications" name="medications">
+            <option value="">Selecione</option>
+            <option value="none">Nenhum</option>
+            <option value="anticoagulants">Anticoagulantes</option>
+            <option value="iron_supplements">Suplementos de Ferro</option>
+            <option value="hormones">Hormônios</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rbc">Eritrócitos (milhões/mm³):</label>
+          <input type="number" id="rbc" name="rbc" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="hemoglobin">Hemoglobina (g/dL):</label>
+          <input type="number" id="hemoglobin" name="hemoglobin" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="hematocrit">Hematócrito (%):</label>
+          <input type="number" id="hematocrit" name="hematocrit" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="wbc">Leucócitos (mil/mm³):</label>
+          <input type="number" id="wbc" name="wbc" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="platelets">Plaquetas (mil/mm³):</label>
+          <input type="number" id="platelets" name="platelets" required>
+        </div>
+        <div class="form-group">
+          <label for="vcm">Volume Corpuscular Médio (fL):</label>
+          <input type="number" id="vcm" name="vcm" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="hcm">Hemoglobina Corpuscular Média (pg):</label>
+          <input type="number" id="hcm" name="hcm" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="chcm">Concentração de Hemoglobina Corpuscular Média (g/dL):</label>
+          <input type="number" id="chcm" name="chcm" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="rdw">RDW - Amplitude de Distribuição Eritrocitária (%):</label>
+          <input type="number" id="rdw" name="rdw" step="0.1" required>
+        </div>
+        <!-- Diferencial de Leucócitos -->
+        <div class="form-group">
+          <label for="neutrophils">Neutrófilos (%):</label>
+          <input type="number" id="neutrophils" name="neutrophils" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="lymphocytes">Linfócitos (%):</label>
+          <input type="number" id="lymphocytes" name="lymphocytes" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="monocytes">Monócitos (%):</label>
+          <input type="number" id="monocytes" name="monocytes" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="eosinophils">Eosinófilos (%):</label>
+          <input type="number" id="eosinophils" name="eosinophils" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="basophils">Basófilos (%):</label>
+          <input type="number" id="basophils" name="basophils" step="0.1" required>
+        </div>
+        <button type="submit">Interpretar Hemograma</button>
+      </form>
+      <div id="hemogram-result"></div>
+    </section>
+
+    <!-- Glicose -->
+    <section id="glucose" class="exam-section">
+      <h2>Glicose</h2>
+      <form id="glucose-form">
+        <div class="form-group">
+          <label for="glucose-level">Glicose (mg/dL):</label>
+          <input type="number" id="glucose-level" name="glucose-level" step="0.1" required>
+        </div>
+        <button type="submit">Interpretar Glicose</button>
+      </form>
+      <div id="glucose-result"></div>
+    </section>
+
+    <!-- Colesterol -->
+    <section id="cholesterol" class="exam-section">
+      <h2>Colesterol</h2>
+      <form id="cholesterol-form">
+        <div class="form-group">
+          <label for="total-cholesterol">Colesterol Total (mg/dL):</label>
+          <input type="number" id="total-cholesterol" name="total-cholesterol" step="1" required>
+        </div>
+        <button type="submit">Interpretar Colesterol</button>
+      </form>
+      <div id="cholesterol-result"></div>
+    </section>
+    <!-- Hormonais -->
+    <section id="hormonal" class="exam-section">
+      <h2>Exames Hormonais</h2>
+      <form id="hormonal-form">
+        <!-- Campos principais -->
+        <div class="form-group">
+          <label for="age-hormonal">Idade:</label>
+          <input type="number" id="age-hormonal" name="age" required>
+        </div>
+        <div class="form-group">
+          <label for="sex-hormonal">Sexo:</label>
+          <select id="sex-hormonal" name="sex" required>
+            <option value="">Selecione</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+          </select>
+        </div>
+    
+        <!-- Valores dos exames -->
+        <div class="form-group">
+          <label for="tsh">TSH (mU/L):</label>
+          <input type="number" id="tsh" name="tsh" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="t4-free">T4 Livre (ng/dL):</label>
+          <input type="number" id="t4-free" name="t4-free" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="t3-total">T3 Total (ng/dL):</label>
+          <input type="number" id="t3-total" name="t3-total" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="cortisol">Cortisol (µg/dL):</label>
+          <input type="number" id="cortisol" name="cortisol" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="prolactin">Prolactina (ng/mL):</label>
+          <input type="number" id="prolactin" name="prolactin" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="lh">LH (UI/L):</label>
+          <input type="number" id="lh" name="lh" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="fsh">FSH (UI/L):</label>
+          <input type="number" id="fsh" name="fsh" step="0.1" required>
+        </div>
+    
+        <!-- Fatores que podem influenciar -->
+        <h3>Fatores que podem influenciar os resultados:</h3>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="menstrual_cycle"> Ciclo Menstrual</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="pregnancy"> Gravidez</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="stress"> Estresse</label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" name="factors" value="medications" id="medication-checkbox"> Uso de Medicamentos
+          </label>
+        </div>
+    
+        <!-- Lista de Medicamentos -->
+        <div class="form-group" id="medication-list-group" style="display: none;">
+          <label for="medication-list">Selecione o medicamento:</label>
+          <select id="medication-list" name="medication-list">
+            <option value="">Selecione</option>
+            <option value="corticosteroids">Corticosteroides</option>
+            <option value="antidepressants">Antidepressivos</option>
+            <option value="antipsychotics">Antipsicóticos</option>
+            <option value="contraceptives">Contraceptivos Orais</option>
+            <option value="anabolic_steroids">Esteroides Anabolizantes</option>
+            <option value="thyroid_medications">Medicamentos Tireoideanos</option>
+          </select>
+        </div>
+    
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="exercise"> Exercício Físico Intenso</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="lack_of_sleep"> Falta de Sono</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="environmental_chemicals"> Exposição a Químicos Ambientais</label>
+        </div>
+    
+        <button type="submit">Interpretar Exames Hormonais</button>
+      </form>
+      <div id="hormonal-result"></div>
+    </section>
+
+    <!-- Marcadores Inflamatórios -->
+    <section id="inflammatory-markers" class="exam-section">
+      <h2>Marcadores Inflamatórios</h2>
+      <form id="inflammatory-form">
+        <!-- Informações do Paciente -->
+        <div class="form-group">
+          <label for="age-inflammatory">Idade:</label>
+          <input type="number" id="age-inflammatory" name="age" required>
+        </div>
+        <div class="form-group">
+          <label for="sex-inflammatory">Sexo:</label>
+          <select id="sex-inflammatory" name="sex" required>
+            <option value="">Selecione</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+          </select>
+        </div>
+    
+        <!-- Valores dos Marcadores Inflamatórios -->
+        <h3>Valores dos Marcadores</h3>
+        <div class="form-group">
+          <label for="pcr">PCR (mg/L):</label>
+          <input type="number" id="pcr" name="pcr" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="vhs">VHS (mm/h):</label>
+          <input type="number" id="vhs" name="vhs" step="1" required>
+        </div>
+        <div class="form-group">
+          <label for="ferritin">Ferritina (ng/mL):</label>
+          <input type="number" id="ferritin" name="ferritin" step="1" required>
+        </div>
+    
+        <!-- Fatores Adversos -->
+        <h3>Fatores que Podem Influenciar</h3>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="menstrual_cycle"> Ciclo Menstrual</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="pregnancy"> Gravidez</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="stress"> Estresse</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="exercise"> Exercício Físico Intenso</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="lack_of_sleep"> Falta de Sono</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="environmental_chemicals"> Exposição a Químicos Ambientais</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="chronic_conditions"> Condições Crônicas</label>
+        </div>
+    
+        <!-- Medicamentos -->
+        <h3>Medicamentos que Podem Alterar os Resultados</h3>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="corticosteroids"> Corticosteroides</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="antidepressants"> Antidepressivos</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="antipsychotics"> Antipsicóticos</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="iron_supplements"> Suplementos de Ferro</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="immunosuppressants"> Imunossupressores</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="medications" value="anti_inflammatory"> Anti-inflamatórios Não Esteroides (AINEs)</label>
+        </div>
+    
+        <!-- Botão de Enviar -->
+        <button type="submit">Interpretar Marcadores Inflamatórios</button>
+      </form>
+    
+      <!-- Resultados -->
+      <div id="inflammatory-result"></div>
+    </section>
+    <section id="metabolic-exams" class="exam-section">
+      <h2>Exames Metabólicos</h2>
+      <form id="metabolic-form">
+        <!-- Informações do Paciente -->
+        <div class="form-group">
+          <label for="age-metabolic">Idade:</label>
+          <input type="number" id="age-metabolic" name="age" required>
+        </div>
+        <div class="form-group">
+          <label for="sex-metabolic">Sexo:</label>
+          <select id="sex-metabolic" name="sex" required>
+            <option value="">Selecione</option>
+            <option value="male">Masculino</option>
+            <option value="female">Feminino</option>
+          </select>
+        </div>
+    
+        <!-- Eletrólitos -->
+        <h3>Eletrólitos</h3>
+        <div class="form-group">
+          <label for="sodium">Sódio (mEq/L):</label>
+          <input type="number" id="sodium" name="sodium" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="potassium">Potássio (mEq/L):</label>
+          <input type="number" id="potassium" name="potassium" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="calcium">Cálcio (mg/dL):</label>
+          <input type="number" id="calcium" name="calcium" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="magnesium">Magnésio (mg/dL):</label>
+          <input type="number" id="magnesium" name="magnesium" step="0.1" required>
+        </div>
+    
+        <!-- Proteínas Totais e Frações -->
+        <h3>Proteínas Totais e Frações</h3>
+        <div class="form-group">
+          <label for="total-proteins">Proteínas Totais (g/dL):</label>
+          <input type="number" id="total-proteins" name="total-proteins" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="albumin">Albumina (g/dL):</label>
+          <input type="number" id="albumin" name="albumin" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label for="globulin">Globulina (g/dL):</label>
+          <input type="number" id="globulin" name="globulin" step="0.1" required>
+        </div>
+    
+        <!-- Fatores Adversos -->
+        <h3>Fatores que Podem Influenciar</h3>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="dehydration"> Desidratação</label>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" name="factors" value="renal_conditions"> Condições Renais</label>
+        </div>
+        <div class="form-group">
+           <!-- Medicamentos -->
+<h3>Medicamentos que Podem Influenciar</h3>
+<div class="form-group">
+  <label><input type="checkbox" name="medications" value="diuretics"> Diuréticos</label>
+</div>
+<div class="form-group">
+  <label><input type="checkbox" name="medications" value="antacids"> Antiácidos</label>
+</div>
+<div class="form-group">
+  <label><input type="checkbox" name="medications" value="steroids"> Esteroides</label>
+</div>
+<div class="form-group">
+  <label><input type="checkbox" name="medications" value="calcium_supplements"> Suplementos de Cálcio</label>
+</div>
+
+          </select>
+          <small>Toque para selecionar múltiplos medicamentos.</small>
+        </div>
+    
+        <!-- Botão de Enviar -->
+        <button type="submit">Interpretar Exames Metabólicos</button>
+      </form>
+    
+      <!-- Resultados -->
+      <div id="metabolic-result"></div>
+    </section>
+      <!--/////////////////////////////////////////////////////////////////-->
+      <!-- Exames Genéticos -->
+<section id="genetic-exams" class="exam-section">
+  <h2>Exames Genéticos</h2>
+  <form id="genetic-form">
+    <!-- Informações do Paciente -->
+    <div class="form-group">
+      <label for="age-genetic">Idade:</label>
+      <input type="number" id="age-genetic" name="age" required>
+    </div>
+    <div class="form-group">
+      <label for="sex-genetic">Sexo:</label>
+      <select id="sex-genetic" name="sex" required>
+        <option value="">Selecione</option>
+        <option value="male">Masculino</option>
+        <option value="female">Feminino</option>
+      </select>
+    </div>
+
+    <!-- Testes de Intolerância Alimentar -->
+    <h3>Testes de Intolerância Alimentar</h3>
+    <div class="form-group">
+      <label for="gluten">Glúten (IgG):</label>
+      <input type="number" id="gluten" name="gluten" step="0.1" required>
+    </div>
+    <div class="form-group">
+      <label for="lactose">Lactose (IgG):</label>
+      <input type="number" id="lactose" name="lactose" step="0.1" required>
+    </div>
+
+    <!-- Marcadores Tumorais -->
+    <h3>Marcadores Tumorais</h3>
+    <div class="form-group">
+      <label for="cea">CEA (ng/mL):</label>
+      <input type="number" id="cea" name="cea" step="0.1" required>
+    </div>
+    <div class="form-group">
+      <label for="psa">PSA (ng/mL):</label>
+      <input type="number" id="psa" name="psa" step="0.1" required>
+    </div>
+    <div class="form-group">
+      <label for="ca125">CA-125 (U/mL):</label>
+      <input type="number" id="ca125" name="ca125" step="0.1" required>
+    </div>
+
+    <!-- Fatores Adversos -->
+    <h3>Fatores que Podem Influenciar</h3>
+    <div class="form-group">
+      <label><input type="checkbox" name="factors" value="pregnancy"> Gravidez</label>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" name="factors" value="menstrual_cycle"> Ciclo Menstrual</label>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" name="factors" value="smoking"> Tabagismo</label>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" name="factors" value="alcohol"> Consumo de Álcool</label>
+    </div>
+    
+    <!-- Lista de Medicamentos -->
+    <div class="form-group" id="medication-list-group">
+      <h3>Medicamentos:</h3>
+      <label><input type="checkbox" name="medications" value="immunosuppressants"> Imunossupressores</label><br>
+      <label><input type="checkbox" name="medications" value="hormone_therapy"> Terapia Hormonal</label><br>
+      <label><input type="checkbox" name="medications" value="chemotherapy"> Quimioterapia</label><br>
+    </div>
+
+    <!-- Botão de Enviar -->
+    <button type="submit">Interpretar Exames Genéticos</button>
+  </form>
+
+  <!-- Resultados -->
+  <div id="genetic-result"></div>
+</section>
+
+      <!--/////////////////////////////////////////////////////////////////-->
+</section>
+    
+  </div>
+
+  <script src="./js/script.js"></script>
+  <script src="./js/hormonios.js"></script>
+  <script src="./js/inflamatorio.js"></script>
+  <script src="./js/metabolico.js"></script>
+  <script src="./js/genetica.js"></script>
+</body>
+</html>
